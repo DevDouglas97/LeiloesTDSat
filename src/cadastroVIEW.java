@@ -151,6 +151,9 @@ public class cadastroVIEW extends javax.swing.JFrame {
             produto.setStatus(status);
             ProdutosDAO produtodao = new ProdutosDAO();
             produtodao.cadastrarProduto(produto);
+            cadastroNome.setText("");
+            cadastroValor.setText("");
+            
         }catch (NumberFormatException ex){
              JOptionPane.showMessageDialog(this,"Informe um valor numérico válido.");
         }
