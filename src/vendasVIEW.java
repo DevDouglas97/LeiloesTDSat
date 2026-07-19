@@ -7,6 +7,10 @@
  *
  * @author devdouglas
  */
+
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 public class vendasVIEW extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(vendasVIEW.class.getName());
@@ -16,6 +20,27 @@ public class vendasVIEW extends javax.swing.JFrame {
      */
     public vendasVIEW() {
         initComponents();
+         listarProdutosVendidos();
+    }
+    private void listarProdutosVendidos() {
+
+        ProdutosDAO dao = new ProdutosDAO();
+
+        ArrayList<ProdutosDTO> produtos = dao.listarProdutosVendidos();
+
+        DefaultTableModel tabela = (DefaultTableModel) listaProdutosVendidos.getModel();
+
+        tabela.setRowCount(0);
+
+        for (ProdutosDTO produto : produtos) {
+
+            tabela.addRow(new Object[]{
+                produto.getId(),
+                produto.getNome(),
+                produto.getValor(),
+                produto.getStatus()
+            });
+        }
     }
 
     /**
@@ -29,7 +54,7 @@ public class vendasVIEW extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaProdutos = new javax.swing.JTable();
+        listaProdutosVendidos = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
@@ -38,9 +63,8 @@ public class vendasVIEW extends javax.swing.JFrame {
         jLabel1.setText("Lista de Produtos");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(548, 479));
 
-        listaProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        listaProdutosVendidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -48,7 +72,7 @@ public class vendasVIEW extends javax.swing.JFrame {
                 "ID", "Nome", "Valor", "Status"
             }
         ));
-        jScrollPane1.setViewportView(listaProdutos);
+        jScrollPane1.setViewportView(listaProdutosVendidos);
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(this::btnVoltarActionPerformed);
@@ -126,6 +150,6 @@ public class vendasVIEW extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable listaProdutos;
+    private javax.swing.JTable listaProdutosVendidos;
     // End of variables declaration//GEN-END:variables
 }
